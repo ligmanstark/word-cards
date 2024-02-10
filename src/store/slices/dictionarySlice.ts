@@ -4,6 +4,7 @@ import { put } from 'redux-saga/effects';
 import axios from 'axios';
 import { BASE_URL, EN_RU, SEARCH_WORD } from '../../utils/consts';
 const api = process.env.REACT_APP_API_KEY;
+ const FULL_URL = BASE_URL + api + EN_RU + SEARCH_WORD;
 const initialState: dictionaryAPIState = {
   word: []
 };
@@ -11,8 +12,8 @@ const initialState: dictionaryAPIState = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* getWordSaga(): object {
   const payload = yield axios
-    .get(BASE_URL + api + EN_RU + SEARCH_WORD + 'oil')
-    .catch((error) => console.log(error.status + ':=>' + error.statusText));
+    .get(FULL_URL + 'oil')
+    .catch((error) => console.log('ERROR:=> '+ error));
   yield put(getWordAction(payload));
   console.log(payload);
 }
@@ -41,3 +42,4 @@ export const getWord = createAction(GET_WORD);
 export const setText = createAction(SET_TEXT);
 export const { getWordAction, setTextAction } = dictionarySlice.actions;
 export default dictionarySlice.reducer;
+
