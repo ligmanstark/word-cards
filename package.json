@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,css,scss}\"",
-    "test": "jest"
-  },
+    "test": "jest --setupFiles dotenv/config"
+    },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
