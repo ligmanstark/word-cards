@@ -3,10 +3,7 @@ import styled from '@emotion/styled';
 import { Container } from '../../styled/components';
 import Link from 'next/link';
 
-export const Wrapper = styled.header`
-  background: transparent;
-  height: 6rem;
-`;
+export const Wrapper = styled.header``;
 
 export const MyContainer = styled(Container)`
   display: flex;

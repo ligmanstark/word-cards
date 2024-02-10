@@ -1,21 +1,32 @@
 import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+import wordReducer, {
+  GET_WORD,
+  SET_TEXT,
+  getWordSaga,
+  setTextSaga
+} from './slices/dictionarySlice';
+import { takeEvery } from 'redux-saga/effects';
+import { useDispatch } from 'react-redux';
 
-// import { goodsApi } from './service/goodsService';
-// import goodsReducer from './slices/goodsSlice';
-// import userReducer from './slices/userSlice';
 import modalReducer from './slices/modalSlice';
-// import commentsReducer from './slices/commentsSlice';
 
+function* sagas() {
+   yield takeEvery(GET_WORD, getWordSaga);
+   yield takeEvery(SET_TEXT,setTextSaga)
+}
+const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
-    // [goodsApi.reducerPath]: goodsApi.reducer, - service/
-    // goodsReducer: goodsReducer, - slices/
-    // userReducer: userReducer,
+    wordReducer: wordReducer,
     modalReducer: modalReducer
-    // commentsReducer: commentsReducer,
-  }
-  // middleware: (getDefaultMiddleware) =>
-  // 	getDefaultMiddleware().concat(goodsApi.middleware), - мидлвара для service/
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware)
 });
 
+sagaMiddleware.run(sagas);
+
+
+export const useStoreDispatch = () => useDispatch<typeof store.dispatch>();
 export type RootState = ReturnType<typeof store.getState>;
