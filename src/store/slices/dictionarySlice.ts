@@ -1,28 +1,18 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { dictionaryAPI } from '../../types/types';
+import { dictionaryAPIState } from '../../types/typesState';
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
 import { BASE_URL, EN_RU, SEARCH_WORD } from '../../utils/consts';
-const initialState: dictionaryAPI = {
-  text: '',
-  pos: '',
-  tr: [
-    {
-      fr: null,
-      gen: '',
-      pos: '',
-      text: ''
-    }
-  ],
-  ts: ''
+const api = process.env.REACT_APP_API_KEY;
+const initialState: dictionaryAPIState = {
+  word: []
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* getWordSaga(text:any): object {
-  const payload = yield axios.get(
-    BASE_URL + process.env.REACT_APP_API_KEY + EN_RU + SEARCH_WORD + text
-  );
+export function* getWordSaga(text = 'oil'): object {
+  const payload = yield axios.get(BASE_URL + api + EN_RU + SEARCH_WORD + 'oil');
   yield put(getWordAction(payload));
+  console.log(payload);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,11 +23,12 @@ export const dictionarySlice = createSlice({
   name: 'dictionarySlice',
   initialState,
   reducers: {
-    getWordAction: (state: dictionaryAPI, action) => {
-      state.tr = action.payload.tr;
+    getWordAction: (state, action) => {
+      state.word = action.payload.data.def[0];
+      console.log(action.payload);
     },
-    setTextAction: (state: dictionaryAPI, action: PayloadAction<string>) => {
-      state.text = action.payload;
+    setTextAction: (state, action: PayloadAction<[]>) => {
+      state.word = action.payload;
     }
   }
 });

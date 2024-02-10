@@ -12,8 +12,8 @@ import { useDispatch } from 'react-redux';
 import modalReducer from './slices/modalSlice';
 
 function* sagas() {
-   yield takeEvery(GET_WORD, getWordSaga);
-   yield takeEvery(SET_TEXT,setTextSaga)
+  yield takeEvery(GET_WORD, getWordSaga);
+  yield takeEvery(SET_TEXT, setTextSaga);
 }
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
@@ -26,7 +26,6 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(sagas);
-
 
 export const useStoreDispatch = () => useDispatch<typeof store.dispatch>();
 export type RootState = ReturnType<typeof store.getState>;
