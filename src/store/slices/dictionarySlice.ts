@@ -6,13 +6,13 @@ import { BASE_URL, EN_RU, SEARCH_WORD } from '../../utils/consts';
 const api = process.env.REACT_APP_API_KEY;
 const FULL_URL = BASE_URL + api + EN_RU + SEARCH_WORD;
 const initialState: dictionaryAPIState = {
-  word: []
+  cards: []
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* getWordSaga(): object {
   const payload = yield axios
-    .get(FULL_URL + 'oil')
+    .get(FULL_URL + 'bread')
     .catch((error) => console.log('ERROR:=> ' + error));
   yield put(getWordAction(payload));
   console.log(payload);
@@ -27,11 +27,11 @@ export const dictionarySlice = createSlice({
   initialState,
   reducers: {
     getWordAction: (state, action) => {
-      state.word = action.payload.data.def[0];
+      state.cards.push(action.payload.data.def[0]);
       console.log(action.payload);
     },
     setTextAction: (state, action: PayloadAction<[]>) => {
-      state.word = action.payload;
+      state.cards = action.payload;
     }
   }
 });
