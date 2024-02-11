@@ -19,7 +19,7 @@ const Home = () => {
 
   const handleAddDataInDB = async () => {
     try {
-      const docRef = doc(db, 'words-db','YjyBEnL1VvlOmJmTHmuJ');
+      const docRef = doc(db, 'words-db', 'YjyBEnL1VvlOmJmTHmuJ');
       console.log(docRef);
       console.log(cards);
       await updateDoc(docRef, {
@@ -30,7 +30,7 @@ const Home = () => {
       console.error('Error adding document: ', e);
     }
   };
-   
+
   return (
     <main>
       <GlobalStyles />
@@ -44,6 +44,6 @@ const Home = () => {
       </>
     </main>
   );
- };
+};
 
 export default Home;

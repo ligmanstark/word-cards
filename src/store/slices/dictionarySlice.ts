@@ -12,7 +12,7 @@ const initialState: dictionaryAPIState = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function* getWordSaga(): object {
   const payload = yield axios
-    .get(FULL_URL + 'bread')
+    .get(FULL_URL + 'car')
     .catch((error) => console.log('ERROR:=> ' + error));
   yield put(getWordAction(payload));
   console.log(payload);
