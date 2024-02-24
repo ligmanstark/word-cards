@@ -2,26 +2,21 @@ import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { dictionaryAPIState } from '../../types/typesState';
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
-import { BASE_URL, EN_RU, SEARCH_WORD } from '../../utils/consts';
+import { BASE_URL, RU_EN, SEARCH_WORD } from '../../utils/consts';
 const api = process.env.REACT_APP_API_KEY;
-const FULL_URL = BASE_URL + api + EN_RU + SEARCH_WORD;
+const FULL_URL = BASE_URL + api + RU_EN + SEARCH_WORD;
 const initialState: dictionaryAPIState = {
-  cards: []
+  cards: [],
+ 
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* getWordSaga(): object {
-  const payload = yield axios
-    .get(FULL_URL + 'car')
-    .catch((error) => console.log('ERROR:=> ' + error));
-  yield put(getWordAction(payload));
-  console.log(payload);
-}
+export function* getWordSaga(text: { payload: string }): object {
+  const payload = yield axios.get(FULL_URL + text.payload).catch((error) => console.log('ERROR:=> ' + error));
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function* setTextSaga(text: any): object {
-  yield put(setTextAction(text));
+  yield put(getWordAction(payload));
 }
+ 
 export const dictionarySlice = createSlice({
   name: 'dictionarySlice',
   initialState,

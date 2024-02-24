@@ -2,19 +2,18 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import wordReducer, {
   GET_WORD,
-  SET_TEXT,
-  getWordSaga,
-  setTextSaga
-} from './slices/dictionarySlice';
+   getWordSaga,
+ } from './slices/dictionarySlice';
 import { takeEvery } from 'redux-saga/effects';
 import { useDispatch } from 'react-redux';
 
 import modalReducer from './slices/modalSlice';
 
 function* sagas() {
+  // eslint-disable-next-line
+  //@ts-ignore
   yield takeEvery(GET_WORD, getWordSaga);
-  yield takeEvery(SET_TEXT, setTextSaga);
-}
+ }
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {

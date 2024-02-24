@@ -28,10 +28,10 @@ export const TextField = styled.input`
   height: 60px;
   max-width: calc(100% - 100px - 20px);
   border: none;
-  color: var(--search-color);
+  color: black;
   font-size: 0.75rem;
   line-height: 1.5;
-  cursor: pointer;
+
   background-color: var(--search-bg);
 
   &::placeholder {
