@@ -8,3 +8,9 @@ export const SubBox = styled.div``;
 
 export const TextBox = styled.div``;
 export const Text = styled.p``;
+
+export const FindWords = styled.ul`
+  display: flex;
+  gap: 0.05rem;
+  flex-direction: column;
+`;
